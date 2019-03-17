@@ -1,0 +1,162 @@
+第一题：
+close all;clear all;clc;
+[I,map]=imread('citywall.bmp');
+H=ind2gray(I,map);
+imhist(H);
+axis([0 255 0 8000])
+title('citywall直方图')
+
+close all;clear all;clc;
+[I,map]=imread('elain.bmp');
+H=ind2gray(I,map);
+imhist(H);
+axis([0 255 0 2500])
+title('elain直方图')
+
+close all;clear all;clc;
+[I,map]=imread('lena.bmp');
+H=ind2gray(I,map);
+imhist(H);
+axis([0 255 0 2500])
+title('lena直方图')
+
+close all;clear all;clc;
+[I,map]=imread('woman.BMP');
+H=ind2gray(I,map);
+imhist(H);
+axis([0 255 0 150000])
+title('woman直方图')
+
+
+第二题：
+close all;clear all;clc;
+[I,map]=imread('citywall.bmp');
+H=ind2gray(I,map);
+map(end:256,:)=0;
+subplot(2,2,1)
+imshow(H)
+title('原图像')
+subplot(2,2,2)
+imhist(H);
+%ylim('auto')
+title('citywall直方图')
+g=histeq(H,256);
+subplot(2,2,3)
+imshow(g)
+title('均衡后图像')
+subplot(2,2,4)
+imhist(g)
+%ylim('auto')
+title('均衡后直方图')
+
+close all;clear all;clc;
+[I,map]=imread('elain.bmp');
+H=ind2gray(I,map);
+subplot(2,2,1)
+imshow(H)
+title('原图像')
+subplot(2,2,2)
+imhist(H);
+%ylim('auto')
+title('elain直方图')
+g=histeq(H,256);
+subplot(2,2,3)
+imshow(g)
+title('均衡后图像')
+subplot(2,2,4)
+imhist(g)
+%ylim('auto')
+title('均衡后直方图')
+
+close all;clear all;clc;
+[I,map]=imread('lena.bmp');
+H=ind2gray(I,map);
+subplot(2,2,1)
+imshow(H)
+title('原图像')
+subplot(2,2,2)
+imhist(H);
+%ylim('auto')
+title('lena直方图')
+g=histeq(H,256);
+subplot(2,2,3)
+imshow(g)
+title('均衡后图像')
+subplot(2,2,4)
+imhist(g)
+%ylim('auto')
+title('均衡后直方图')
+
+close all;clear all;clc;
+[I,map]=imread('woman.BMP');
+H=ind2gray(I,map);
+subplot(2,2,1)
+imshow(H)
+title('原图像')
+subplot(2,2,2)
+imhist(H);
+%ylim('auto')
+title('woman直方图')
+g=histeq(H,256);
+subplot(2,2,3)
+imshow(g)
+title('均衡后图像')
+subplot(2,2,4)
+imhist(g)
+%ylim('auto')
+title('均衡后直方图')
+
+
+第三题：
+close all;clear all;clc;
+[I1,map1]=imread('elain1.bmp');
+[I2,map2]=imread('elain.BMP');
+H1=ind2gray(I1,map1);
+H2=ind2gray(I2,map2);
+map1(end:255,:)=0;
+subplot(2,3,1)
+imshow(I1,map1)
+title('原图像')
+subplot(2,3,2)
+imshow(I2,map2)
+title('匹配图像')
+h=imhist(H2,map2);
+g=histeq(H1,h);
+subplot(2,3,3)
+imshow(g)
+title('匹配后图像')
+subplot(2,3,4)
+imhist(H1)
+title('原直方图')
+subplot(2,3,5)
+imhist(H2)
+title('匹配直方图')
+subplot(2,3,6)
+imhist(g)
+title('匹配之后直方图')
+
+
+第四题：
+close all;clear all;clc;
+[I,map]=imread('lena.bmp');
+H=ind2gray(I,map);
+%map(end:256,:)=0;
+g=adapthisteq(H,'Numtiles',[7 7],'ClipLimit',0.05);
+figure
+imshow(g)
+title('7*7的局部直方图增强图像')
+p=getframe(gcf);
+imwrite(p.cdata,['4-lena.bmp']);
+
+
+第五题：
+close all;clear all;clc;
+[I,map]=imread('woman.BMP');
+counts=imhist(I,map);
+T=otsuthresh(counts);
+H=im2bw(I,T);
+figure
+imshow(H)
+title('分割后图像')
+p=getframe(gcf);
+imwrite(p.cdata,['5-woman.bmp']);
